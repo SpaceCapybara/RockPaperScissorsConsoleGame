@@ -1,41 +1,92 @@
-function getComputerChoice(min, max) {              
-    return Math.floor(Math.random() * (max - min +1) + min);
+let rockBttn = document.querySelector("#rock")
+let paperBttn = document.querySelector("#paper")
+let scssrBttn = document.querySelector("#scissors")
+let rsltOutput = document.querySelector('.result')
+let restartDiv = document.querySelector("#restartBttnDiv")
+
+let winCountP = document.createElement('p')
+
+function randomIntFromInterval(min, max) {  
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
-  
-  let computerChoice = getComputerChoice(1, 3)
-  let computerSelection = ""
+let userOption = ''
+let computerOption = ''
+let winCount = 0
+let restartButtonAppended = false
 
-  if (computerChoice == 1) {
-    computerSelection = ("Paper")
-  } else if (computerChoice == 2) {
-    computerSelection = ("Scissors")
-  } else {
-    computerSelection = ("Rock")
-  }
+function checkScore() {
+    if (winCount == 5 && restartButtonAppended == false) {
+        let restartBttn = document.createElement('button')
+        restartBttn.setAttribute('id', 'restart')
+        restartBttn.innerHTML = 'Restart Game'
+        restartDiv.appendChild(restartBttn)
+        
+        restartBttn.addEventListener('click', () => {
+            winCount = 0;
+            userOption = ''
+            computerOption = ''
+            winCountP.textContent = ''
+            rsltOutput.textContent = ''
+            restartBttn.remove()
+        })
+        restartButtonAppended = true
+    }}
 
-  let playerSelection = prompt("Would you like to choose rock, paper or scissors? ").toLocaleLowerCase();
+rockBttn.addEventListener('click', () => {
+    userOption = 'rock'
+      const rndInt = randomIntFromInterval(1, 3)
+      if (rndInt == 1) {
+        computerOption = 'rock'
+      } else if (rndInt == 2) {
+        computerOption = 'paper'
+      } else computerOption = 'scissors'
+      if (userOption && computerOption == 'paper') {
+        rsltOutput.textContent = `You lost, you chose ${userOption} and the machine chose ${computerOption}!`
+    } else if (userOption && computerOption == 'scissors') {
+        rsltOutput.textContent = `You won, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCount += 1;
+} else rsltOutput.textContent = `It's a draw, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCountP.textContent = `You won a total of ${winCount} times`
+        restartDiv.appendChild(winCountP)
+        checkScore();
+})
 
-  function playRound(playerSelection, computerSelection) {
-    if (playerSelection == "rock" && computerSelection == "Paper") {
-        return ("You lose! Paper beats Rock")
-    } else if (playerSelection == "rock" && computerSelection == "Scissors") {
-        return ("You win! Rock beats Scissors")
-    } else if (playerSelection == "scissors" && computerSelection == "Paper") {
-        return ("You win! Scissors beat Paper")
-    } else if (playerSelection == "scissors" && computerSelection == "Rock") {
-        return ("You lose! Rock beats Scisors")
-    } else if (playerSelection == "scissors" && computerSelection == "Scissors") {
-        return ("It's a draw!")
-    } else if (playerSelection == "paper" && computerSelection == "Paper") {
-        return ("It's a draw!")
-    } else if (playerSelection == "rock" && computerSelection == "Rock") {
-        return ("It's a draw!")
-    } else if (playerSelection == "paper" && computerSelection == "Rock") {
-        return ("You win! Paper beats Rock")
-    } else if (playerSelection == "paper" && computerSelection == "Scissors") {
-        return ("You lose! Scissors beat Paper ")
-    }
-  }
+paperBttn.addEventListener('click', () => {
+    userOption = 'paper'
+      const rndInt = randomIntFromInterval(1, 3)
+      if (rndInt == 1) {
+        computerOption = 'rock'
+      } else if (rndInt == 2) {
+        computerOption = 'paper'
+      } else computerOption = 'scissors'
+      if (userOption && computerOption == 'scissors') {
+        rsltOutput.textContent = `You lost, you chose ${userOption} and the machine chose ${computerOption}!`
+    } else if (userOption && computerOption == 'rock') {
+        rsltOutput.textContent = `You won, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCount += 1;
+} else rsltOutput.textContent = `It's a draw, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCountP.textContent = `You won a total of ${winCount} times`
+        restartDiv.appendChild(winCountP)
+        checkScore();
+})
 
-  let result = playRound(playerSelection, computerSelection);
-  console.log(result);
+scssrBttn.addEventListener('click', () => {
+    userOption = 'scissors'
+      const rndInt = randomIntFromInterval(1, 3)
+      if (rndInt == 1) {
+        computerOption = 'rock'
+      } else if (rndInt == 2) {
+        computerOption = 'paper'
+     } else computerOption = 'scissors'
+     if (userOption && computerOption == 'rock') {
+        rsltOutput.textContent = `You lost, you chose ${userOption} and the machine chose ${computerOption}!`
+    } else if (userOption && computerOption == 'paper') {
+        rsltOutput.textContent = `You won, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCount += 1;
+} else rsltOutput.textContent = `It's a draw, you chose ${userOption} and the machine chose ${computerOption}!`
+        winCountP.textContent = `You won a total of ${winCount} times`
+        restartDiv.appendChild(winCountP)
+        checkScore();
+    })
+
+
